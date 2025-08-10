@@ -1,0 +1,13 @@
+app = "ws-app" # 这里改成你的 Fly.io 应用名
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  NODE_ENV = "production"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = false
+  auto_start_machines = true

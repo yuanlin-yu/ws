@@ -1,32 +1,19 @@
-// server.js
-import express from "express";
-import { WebSocketServer } from "ws";
+import { WebSocketServer } from 'ws';
 
-const app = express();
-const PORT = process.env.PORT || 3001;
+const port = process.env.PORT || 8080;
+const wss = new WebSocketServer({ port });
 
-// HTTP 端口
-const server = app.listen(PORT, () => {
-  console.log(`HTTP & WS server running on port ${PORT}`);
-});
+wss.on('connection', (ws) => {
+  console.log('✅ 客户端已连接');
 
-// 创建 WebSocket 服务器
-const wss = new WebSocketServer({ server });
-
-wss.on("connection", (ws) => {
-  console.log("Client connected");
-  ws.send("Welcome to Fly.io WS Server!");
-
-  ws.on("message", (msg) => {
-    console.log(`Received: ${msg}`);
-    ws.send(`Echo: ${msg}`);
+  ws.on('message', (message) => {
+    console.log(`📩 收到消息: ${message}`);
+    ws.send(`服务器收到: ${message}`);
   });
 
-  ws.on("close", () => {
-    console.log("Client disconnected");
+  ws.on('close', () => {
+    console.log('❌ 客户端断开连接');
   });
 });
 
-app.get("/", (req, res) => {
-  res.send("WebSocket Server is running");
-});
+console.log(`🚀 WebSocket 服务器已启动，端口 ${port}`);
