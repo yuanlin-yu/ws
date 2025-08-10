@@ -3,17 +3,16 @@ import { WebSocketServer } from 'ws';
 const port = process.env.PORT || 8080;
 const wss = new WebSocketServer({ port });
 
-wss.on('connection', (ws) => {
-  console.log('✅ 客户端已连接');
+wss.on('connection', ws => {
+  console.log('✅ Client connected');
+  ws.send('Hello from Fly.io WebSocket server!');
 
-  ws.on('message', (message) => {
-    console.log(`📩 收到消息: ${message}`);
-    ws.send(`服务器收到: ${message}`);
+  ws.on('message', message => {
+    console.log('📩 Received:', message.toString());
+    ws.send(`You said: ${message}`);
   });
 
-  ws.on('close', () => {
-    console.log('❌ 客户端断开连接');
-  });
+  ws.on('close', () => console.log('❌ Client disconnected'));
 });
 
-console.log(`🚀 WebSocket 服务器已启动，端口 ${port}`);
+console.log(`🚀 WebSocket server running on port ${port}`);

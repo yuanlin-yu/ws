@@ -1,13 +1,13 @@
-app = "ws-app" # 这里改成你的 Fly.io 应用名
+app = "my-ws-app"
 
-[build]
-  dockerfile = "Dockerfile"
+primary_region = "hkg" # 你可以换成其他地区，比如 hkg(香港), sin(新加坡), nrt(东京)
 
 [env]
   NODE_ENV = "production"
 
 [http_service]
   internal_port = 8080
-  force_https = true
+  force_https = false
   auto_stop_machines = false
   auto_start_machines = true
+  min_machines_running = 1

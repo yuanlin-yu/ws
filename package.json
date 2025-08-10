@@ -1,12 +1,13 @@
 {
-  "name": "fly-ws-server",
+  "name": "my-ws-app",
   "version": "1.0.0",
   "description": "Simple WebSocket server on Fly.io",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "ws": "^8.16.0"
+    "ws": "^8.17.0"
   }
 }
